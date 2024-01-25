@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models/user");
 
 const { HttpError, ctrlWrapper } = require("../helpers/index");
-const { Contact } = require("../models/contact");
 
 const { SECRET_KEY } = process.env;
 
@@ -41,7 +40,7 @@ const login = async (req, res) => {
   };
 
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: "23h" });
-  await Contact.findByIdAndUpdate(user._id, { token });
+  await User.findByIdAndUpdate(user._id, { token });
   res.json({ token });
 };
 
@@ -52,7 +51,7 @@ const getCurrent = async (req, res) => {
 
 const logout = async (req, res) => {
   const { _id } = req.user;
-  await User.findByIdAndUpdate({ _id, token: "" });
+  await User.findByIdAndUpdate(_id, { token: "" });
 
   res.json({ message: "Logout success" });
 };
