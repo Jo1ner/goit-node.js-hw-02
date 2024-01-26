@@ -1,4 +1,4 @@
-const fooWrapper = (foo) => {
+const ctrlWrapper = (foo) => {
   const func = async (req, res, next) => {
     try {
       await foo(req, res, next);
@@ -10,4 +10,4 @@ const fooWrapper = (foo) => {
   return func;
 };
 
-module.exports = fooWrapper;
+module.exports = ctrlWrapper;
